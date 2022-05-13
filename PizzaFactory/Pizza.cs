@@ -8,39 +8,44 @@ namespace PizzaFactory
 {
     public class Pizza
     {
-        private static IDictionary<string, decimal> _pizzaBases = new Dictionary<string, decimal>();
+        private static List<PizzaBase> _pizzaBases = new List<PizzaBase>();
         private static string[] _pizzaToppings = new string[] { "Ham and Mushroom", "Pepperoni", "Vegetable" };
 
-        private const int BASE_COOKING_TIME_MS = 3000;
-
-        public string Base { get; set; }
+        public PizzaBase Base { get; set; }
         public string Topping { get; set; }
-        public int CookingTimeMs { get; private set; }
 
         static Pizza()
         {
-            _pizzaBases.Add("Thin and Crispy", 1);
-            _pizzaBases.Add("Stuffed Crust", 1.5m);
-            _pizzaBases.Add("Deep Pan", 2);
+            _pizzaBases.Add(new PizzaBase("Thin & Crispy", 1));
+            _pizzaBases.Add(new PizzaBase("Stuffed Crust", 1.5m));
+            _pizzaBases.Add(new PizzaBase("Deep Pan", 2));
         }
 
         public static Pizza GenerateRandomPizza()
         {
             Random rnd = new Random();
             int randomBaseIndex = rnd.Next(0, _pizzaBases.Count - 1);
-            string randomBase = _pizzaBases.Keys.ElementAt(randomBaseIndex);
+
+            PizzaBase randomBase = _pizzaBases[randomBaseIndex];
 
             int randomToppingIndex = rnd.Next(0, _pizzaToppings.Count() - 1);
             string randomTopping = _pizzaToppings[randomToppingIndex];
 
-            int cookingTimeMs = (int)(BASE_COOKING_TIME_MS * _pizzaBases[randomBase]) + (randomTopping.Length * 100);
-            return new Pizza() { Base = randomBase, Topping = randomTopping, CookingTimeMs = cookingTimeMs };
+            return new Pizza() { Base = randomBase, Topping = randomTopping };
         }
 
         public void Cook()
         {
             System.Threading.Thread.Sleep(CookingTimeMs);
         }
+
+        public int CookingTimeMs
+		{
+            get
+			{
+                return (int)(Base.CookingTimeMs) + (Topping.Length * 100);
+            }
+		}
 
         public override string ToString()
         {

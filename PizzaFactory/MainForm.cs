@@ -24,8 +24,9 @@ namespace PizzaFactory
                 {
                     Pizza pizza = Pizza.GenerateRandomPizza();
                     pizza.Cook();
+
                     ListViewItem pizzaItem = CookedPizzasListView.Items.Add("1");
-                    pizzaItem.SubItems.Add(pizza.Base);
+                    pizzaItem.SubItems.Add(pizza.Base.Name);
                     pizzaItem.SubItems.Add(pizza.Topping);
                     pizzaItem.SubItems.Add(pizza.CookingTimeMs.ToString());
                     CookedPizzasListView.Refresh();
