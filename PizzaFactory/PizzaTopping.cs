@@ -6,22 +6,17 @@ using System.Threading.Tasks;
 
 namespace PizzaFactory
 {
-    public class PizzaBase
+    public class PizzaTopping
     {
-        private int BASE_COOKING_TIME_MS = 3000;
-
         public string Name { get; }
-        public decimal BaseCookingTimeMultiplier { get; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="name"></param>
-        /// <param name="multiplier"></param>
-        public PizzaBase(string name, decimal multiplier)
+        public PizzaTopping(string name)
 		{
             Name = name;
-            BaseCookingTimeMultiplier = multiplier;
 		}
 
         /// <summary>
@@ -31,7 +26,7 @@ namespace PizzaFactory
         { 
             get
             {
-                return (int)(BASE_COOKING_TIME_MS * BaseCookingTimeMultiplier);
+                return (int)(Name.Length * 100);
             }
         }
     }

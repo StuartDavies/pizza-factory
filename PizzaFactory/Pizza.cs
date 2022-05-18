@@ -9,29 +9,15 @@ namespace PizzaFactory
     public class Pizza
     {
         private static List<PizzaBase> _pizzaBases = new List<PizzaBase>();
-        private static string[] _pizzaToppings = new string[] { "Ham and Mushroom", "Pepperoni", "Vegetable" };
+        private static List<PizzaTopping> _pizzaToppings = new List<PizzaTopping>();
 
-        public PizzaBase Base { get; set; }
-        public string Topping { get; set; }
+        public PizzaBase Base { get; }
+        public PizzaTopping Topping { get; }
 
-        static Pizza()
+        public Pizza(PizzaBase pizzaBase, PizzaTopping pizzaTopping)
         {
-            _pizzaBases.Add(new PizzaBase("Thin & Crispy", 1));
-            _pizzaBases.Add(new PizzaBase("Stuffed Crust", 1.5m));
-            _pizzaBases.Add(new PizzaBase("Deep Pan", 2));
-        }
-
-        public static Pizza GenerateRandomPizza()
-        {
-            Random rnd = new Random();
-            int randomBaseIndex = rnd.Next(0, _pizzaBases.Count - 1);
-
-            PizzaBase randomBase = _pizzaBases[randomBaseIndex];
-
-            int randomToppingIndex = rnd.Next(0, _pizzaToppings.Count() - 1);
-            string randomTopping = _pizzaToppings[randomToppingIndex];
-
-            return new Pizza() { Base = randomBase, Topping = randomTopping };
+            Base = pizzaBase;
+            Topping = pizzaTopping;
         }
 
         public void Cook()
@@ -43,7 +29,7 @@ namespace PizzaFactory
 		{
             get
 			{
-                return (int)(Base.CookingTimeMs) + (Topping.Length * 100);
+                return (int)(Base.CookingTimeMs) + (Topping.CookingTimeMs);
             }
 		}
 

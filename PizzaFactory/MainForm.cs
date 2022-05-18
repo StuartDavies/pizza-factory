@@ -14,6 +14,8 @@ namespace PizzaFactory
 
             try
             {
+                PizzaFactory pizzaFactory = new PizzaFactory();
+
                 CookedPizzasListView.Items.Clear();
                 CookedPizzasListView.Refresh();
 
@@ -22,12 +24,12 @@ namespace PizzaFactory
 
                 for (int i = 0; i < numberOfPizzas; i++)
                 {
-                    Pizza pizza = Pizza.GenerateRandomPizza();
+                    Pizza pizza = pizzaFactory.GenerateRandomPizza();
                     pizza.Cook();
 
                     ListViewItem pizzaItem = CookedPizzasListView.Items.Add("1");
                     pizzaItem.SubItems.Add(pizza.Base.Name);
-                    pizzaItem.SubItems.Add(pizza.Topping);
+                    pizzaItem.SubItems.Add(pizza.Topping.Name);
                     pizzaItem.SubItems.Add(pizza.CookingTimeMs.ToString());
                     CookedPizzasListView.Refresh();
                 }
