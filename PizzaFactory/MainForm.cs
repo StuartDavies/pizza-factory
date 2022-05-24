@@ -14,7 +14,8 @@ namespace PizzaFactory
 
             try
             {
-                PizzaFactory pizzaFactory = new PizzaFactory();
+                PizzaHardCodedRepository pizzaRepository = new PizzaHardCodedRepository();
+                PizzaFactory pizzaFactory = new PizzaFactory(pizzaRepository);
 
                 CookedPizzasListView.Items.Clear();
                 CookedPizzasListView.Refresh();
